@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context 
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/tx 
+         http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/rabbit 
+         http://www.springframework.org/schema/rabbit/spring-rabbit-1.6.xsd">
+
+    <bean id="amqpContainerErrorHandler" class="org.osanchezhuerta.eventscheduling.engine.soa.services.errorhandler.AmqpContainerErrorHandler"> 
+    </bean>
+    
+    
+    <bean id="engineAmqpRetryInterceptor" class="org.springframework.amqp.rabbit.config.StatelessRetryOperationsInterceptorFactoryBean">  
+        <property name="messageRecoverer" ref="engineAmqpMessageRecoverer" />  
+        <property name="retryOperations" ref="engineAmqpRetryTemplate" />  
+    </bean>  
+    
+    <bean id="engineAmqpMessageRecoverer" class="org.osanchezhuerta.eventscheduling.engine.soa.services.recoverer.impl.EngineRejectAndReplyToRequeueRecoverer">  
+        <property name="amqpTemplate" ref="engineAmqpTemplate"/>  
+    </bean>  
+
+    <bean id="engineAmqpRetryTemplate" class="org.springframework.retry.support.RetryTemplate">  
+        <property name="backOffPolicy">  
+            <bean class="org.springframework.retry.backoff.ExponentialBackOffPolicy">  
+                <property name="initialInterval" value="1000" />  
+                <property name="maxInterval" value="10000" />  
+            </bean>  
+        </property>  
+        <property name="retryPolicy">  
+            <bean class="org.springframework.retry.policy.SimpleRetryPolicy">  
+                <property name="maxAttempts" value="1" />  
+            </bean>  
+        </property>  
+    </bean>
+    
+</beans>

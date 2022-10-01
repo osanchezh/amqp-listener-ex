@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.osanchezhuerta.eventscheduling</groupId>
+  <artifactId>eventscheduling</artifactId>
+  <version>0.0.0.1</version>
+  <packaging>pom</packaging>
+  <name>eventscheduling</name>
+  <description>eventscheduling</description>
+  <modules>
+  	<module>eventscheduling-manager</module>
+  	<module>eventscheduling-engine</module>
+  </modules>
+	<properties>
+		<eventscheduling.version>0.0.0.1</eventscheduling.version>
+		<eventscheduling-engine.version>0.0.0.1</eventscheduling-engine.version>
+		<eventscheduling-engine-soa.version>0.0.0.1</eventscheduling-engine-soa.version>
+		<eventscheduling-engine-web.version>0.0.0.1</eventscheduling-engine-web.version>
+		
+		<eventscheduling-motor.version>0.0.0.1</eventscheduling-motor.version>
+		<eventscheduling-motor-soa.version>0.0.0.1</eventscheduling-motor-soa.version>
+		<eventscheduling-motor-web.version>0.0.0.1</eventscheduling-motor-web.version>
+		
+		<slf4j.version>1.6.4</slf4j.version>
+		<logback.version>1.1.3</logback.version>
+	    <jcl.slf4j.version>1.7.12</jcl.slf4j.version>
+		<dbh2.version>1.4.187</dbh2.version>
+		<junit.version>4.8.1</junit.version>
+		<aopalliance.version>1.0</aopalliance.version>
+		<javax.servlet-api.version>2.5</javax.servlet-api.version>
+		<spring.version>4.2.6.RELEASE</spring.version>
+		<springsecurity.version>3.2.9.RELEASE</springsecurity.version>
+		<jersey.version>1.18.1</jersey.version>
+		<org.hsqldb.version>2.3.2</org.hsqldb.version>
+		<commons-dbcp.version>1.4</commons-dbcp.version>
+		<org.hibernate.version>4.3.5.Final</org.hibernate.version>
+		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+		<org.eclipse.jetty.jetty-maven-plugin.version>9.1.1.v20140108</org.eclipse.jetty.jetty-maven-plugin.version>
+		<dozer.version>5.3.1</dozer.version>
+		<aspectj.version>1.7.2</aspectj.version>
+        <jodatime.version>2.2</jodatime.version>
+        <jadira-usertype-core.version>3.1.0.CR1</jadira-usertype-core.version>
+		<validation.version>1.0.0.GA</validation.version>
+        <!-- RSS -->
+        <rome.version>1.0</rome.version>
+        <jsp.version>2.2</jsp.version>
+        <jstl.version>1.2</jstl.version>
+		<servlet.version>2.5</servlet.version>
+        <javax-el.version>2.2</javax-el.version>
+        <jaxb-api.version>2.2.7</jaxb-api.version>
+        <jaxb-impl.version>2.2.7-b53</jaxb-impl.version>
+		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<java.version>1.7</java.version>
+		<project.encoding>UTF-8</project.encoding>
+		<resources-plugin.version>2.4.3</resources-plugin.version>
+		<loghome.app>/home/osanchezhuerta/loghome/eventsheduling</loghome.app>
+		
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.encoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${resources-plugin.version}</version>
+				<configuration>
+					<encoding>${project.encoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+  <url>https://github.com/osanchezhuerta/eventscheduling-app</url>
+  <organization>
+    <name>osanchezhuerta</name>
+    <url>http://codefixes.blogspot.mx/</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>osanchezhuerta</id>
+      <name>Octavio Sanchez Huerta</name>
+      <email>osanchezhuerta@gmail.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git://github.com/osanchezhuerta/eventscheduling-app</connection>
+    <developerConnection>scm:git:git://github.com/osanchezhuerta/eventscheduling-app</developerConnection>
+    <url>https://github.com/osanchezhuerta/eventscheduling-app</url>
+  </scm>	
+	
+</project>

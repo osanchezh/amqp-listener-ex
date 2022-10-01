@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context 
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/tx 
+         http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/rabbit 
+         http://www.springframework.org/schema/rabbit/spring-rabbit-1.6.xsd">
+ 
+<rabbit:listener-container 
+    connection-factory="engineAmqpCacheConnectionFactory"
+    transaction-manager="engineAmqpTransactionManager"
+    concurrency="5"
+    max-concurrency="15"
+    message-converter="engineAmqpJsonMessageConverter"
+    transaction-size="5"
+    
+    channel-transacted="true"
+    acknowledge="auto"
+    requeue-rejected="false"
+    error-handler="amqpContainerErrorHandler"
+    auto-startup="false"
+    idle-event-interval="60000"
+    advice-chain="engineAmqpRetryInterceptor">
+    <rabbit:listener id="engineIdentityRequestContainer" ref="engineIdentityRequestListener" method="onMessage" queues="engineIdentityRequestQueue" admin="engineAmqpAdministrator"/>    
+</rabbit:listener-container>
+
+ <!-- 
+    task-executor="eventAmqpTaskExecutor"
+    <bean id="engineIdentityRequestContainer" class="org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory">  
+        <property name="connectionFactory" ref="engineAmqpCacheConnectionFactory" />  
+        <property name="transactionManager" ref="engineAmqpTransactionManager" />  
+        <property name="concurrentConsumers" value="5" />  
+        <property name="maxConcurrentConsumers" value="15" />  
+        <property name="autoStartup" value="false" /> 
+        <property name="messageConverter" ref="engineAmqpJsonMessageConverter" />  
+        <property name="taskExecutor" ref="eventAmqpTaskExecutor" />  
+        <property name="channelTransacted" value="true" />
+        <property name="idleEventInterval" value="60000" />
+        <property name="errorHandler" ref="amqpContainerErrorHandler" />
+        <property name="queueNames" value="engineIdentityRequestQueue" />
+        
+        <property name="messageListener" ref="engineIdentityRequestListener" />  
+        <property name="adviceChain">  
+            <array>  
+                <ref bean="engineAmqpRetryInterceptor" />  
+            </array>  
+        </property>  
+    </bean>
+   -->
+</beans>

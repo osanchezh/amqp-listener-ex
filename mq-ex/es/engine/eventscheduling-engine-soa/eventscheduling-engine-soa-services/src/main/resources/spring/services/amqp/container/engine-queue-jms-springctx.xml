@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context 
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/tx 
+         http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/rabbit 
+         http://www.springframework.org/schema/rabbit/spring-rabbit-1.3.xsd">
+
+
+    <rabbit:queue id="engineIdentityRequestQueue" name="#{event_amqp_config_prop['engine.queuename.identity.request']}" 
+         durable="true" auto-delete="false">  
+       
+         <rabbit:queue-arguments>  
+            <entry key="x-message-ttl">  
+                <value type="java.lang.Long">100</value>  
+            </entry>  
+            <entry key="x-ha-policy" value="all" />  
+            <entry key="x-dead-letter-exchange" value="engineIdentityDlqExchange" />  
+            <entry key="x-dead-letter-routing-key" value="engineIdentityDlqQueueKey" />  
+            
+        </rabbit:queue-arguments> 
+        <!--    -->
+    </rabbit:queue>
+    
+    <rabbit:queue id="engineIdentityReplyQueue" name="#{event_amqp_config_prop['engine.queuename.identity.reply']}" 
+         durable="true" auto-delete="false">  
+         
+         <rabbit:queue-arguments>  
+            <entry key="x-message-ttl">  
+                <value type="java.lang.Long">100</value>  
+            </entry>  
+            <entry key="x-ha-policy" value="all" />  
+            <entry key="x-dead-letter-exchange" value="engineIdentityDlqExchange" />  
+            <entry key="x-dead-letter-routing-key" value="engineIdentityDlqQueueKey" /> 
+        </rabbit:queue-arguments> 
+       
+    </rabbit:queue>
+    
+    <rabbit:queue id="engineIdentityErrorQueue" name="#{event_amqp_config_prop['engine.queuename.identity.error']}" 
+         durable="true" auto-delete="false">  
+         
+         <rabbit:queue-arguments>  
+            <entry key="x-message-ttl">  
+                <value type="java.lang.Long">100</value>  
+            </entry>  
+            <entry key="x-ha-policy" value="all" />  
+            <entry key="x-dead-letter-exchange" value="engineIdentityDlqExchange" />  
+            <entry key="x-dead-letter-routing-key" value="engineIdentityDlqQueueKey" /> 
+        </rabbit:queue-arguments> 
+        
+    </rabbit:queue>
+    
+    <rabbit:queue id="engineIdentityDlqQueue" name="#{event_amqp_config_prop['engine.queuename.identity.dlq']}" 
+         durable="true" auto-delete="false"> 
+         
+         <rabbit:queue-arguments>  
+            <entry key="x-message-ttl">  
+                <value type="java.lang.Long">100</value>  
+            </entry>  
+            <entry key="x-ha-policy" value="all" />  
+            <entry key="x-dead-letter-exchange" value="engineIdentityDlqExchange" />  
+            <entry key="x-dead-letter-routing-key" value="engineIdentityDlqQueueKey" /> 
+        </rabbit:queue-arguments> 
+         
+    </rabbit:queue>
+</beans>

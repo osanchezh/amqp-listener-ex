@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context 
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/tx 
+         http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/rabbit 
+         http://www.springframework.org/schema/rabbit/spring-rabbit-1.6.xsd
+    	 http://www.springframework.org/schema/task  
+    	 http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<rabbit:annotation-driven />
+	<task:executor id="eventAmqpTaskExecutor" pool-size="4-8"
+		queue-capacity="10" />
+
+ 
+	<bean id="engineAmqpConnectionFactory" class="com.rabbitmq.client.ConnectionFactory">
+		<property name="host"
+			value="#{event_amqp_config_prop['eventscheduling.amqp.host']}" />
+		<property name="port"
+			value="#{event_amqp_config_prop['eventscheduling.amqp.port']}" />
+		<property name="username"
+			value="#{event_amqp_config_prop['eventscheduling.amqp.username']}" />
+		<property name="password"
+			value="#{event_amqp_config_prop['eventscheduling.amqp.password']}" />
+		<property name="virtualHost"
+			value="#{event_amqp_config_prop['eventscheduling.amqp.virtualhost']}" />
+		<property name="connectionTimeout"
+			value="#{event_amqp_config_prop['eventscheduling.amqp.connectiontimeout']}" />
+	</bean>
+
+	<bean id="engineAmqpCacheConnectionFactory"
+		class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+		<constructor-arg ref="engineAmqpConnectionFactory" />
+		<property name="channelCacheSize" value="25" />
+	</bean>
+
+<!-- 		<property name="executor" ref="eventAmqpTaskExecutor" />
+ -->
+	<bean id="engineAmqpTransactionManager"
+		class="org.springframework.amqp.rabbit.transaction.RabbitTransactionManager">
+		<property name="connectionFactory" ref="engineAmqpCacheConnectionFactory" />
+	</bean>
+
+    <rabbit:admin connection-factory="engineAmqpCacheConnectionFactory" id="engineAmqpAdministrator" />
+    
+     <rabbit:template id="engineAmqpTemplate" 
+     reply-timeout="1000" encoding="UTF-8"
+     connection-factory="engineAmqpCacheConnectionFactory" 
+     message-converter="engineAmqpJsonMessageConverter" /> 
+     
+     
+	<bean id="engineAmqpJsonMessageConverter"  
+        class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter"></bean> 
+</beans>

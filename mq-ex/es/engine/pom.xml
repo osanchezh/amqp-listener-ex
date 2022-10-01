@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.osanchezhuerta.eventscheduling</groupId>
+    <artifactId>eventscheduling</artifactId>
+    <version>0.0.0.1</version>
+  </parent>
+  <artifactId>eventscheduling-engine</artifactId>
+  <packaging>pom</packaging>
+  <name>eventscheduling-engine</name>
+  <description>eventscheduling-engine</description>
+  <modules>
+  	<module>eventscheduling-engine-soa</module>
+  	<module>eventscheduling-engine-web</module>
+  </modules>
+  <url>https://github.com/osanchezhuerta/eventscheduling-app</url>
+  <organization>
+    <name>osanchezhuerta</name>
+    <url>http://codefixes.blogspot.mx/</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>osanchezhuerta</id>
+      <name>Octavio Sanchez Huerta</name>
+      <email>osanchezhuerta@gmail.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git://github.com/osanchezhuerta/eventscheduling-app</connection>
+    <developerConnection>scm:git:git://github.com/osanchezhuerta/eventscheduling-app</developerConnection>
+    <url>https://github.com/osanchezhuerta/eventscheduling-app</url>
+  </scm>
+  <properties>
+    <spring-boot-version>1.3.6.RELEASE</spring-boot-version>
+	<spring.framework.version>4.2.7.RELEASE</spring.framework.version>
+	<spring.amqp.version>1.6.0.RELEASE</spring.amqp.version>
+	<spring-data-redis.version>1.7.2.RELEASE</spring-data-redis.version>
+	<org.slf4j.version>1.7.20</org.slf4j.version>
+	<ch.qos.logback.version>1.1.7</ch.qos.logback.version>
+	<aspectj.version>1.8.9</aspectj.version>
+  </properties>
+</project>
